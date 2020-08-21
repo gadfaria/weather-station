@@ -1,0 +1,129 @@
+{
+	"info": {
+		"_postman_id": "395f8613-4c8e-418d-ab45-a064f70b4a17",
+		"name": "Weather Station",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Gabriel\",\n    \"nickname\": \"gabiru\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/user",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "# /user\nInsert an user.\n\n    200: User successfully inserted.\n    400: Nickname already exists.\n    500: Internal error."
+					},
+					"response": []
+				},
+				{
+					"name": "Get User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/user",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "# /user\nGet all users.\n\n    200: Return all users.\n    500: Internal error."
+					},
+					"response": []
+				},
+				{
+					"name": "Find User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/user/gabiru",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"user",
+								"gabiru"
+							]
+						},
+						"description": "# /user/:nickname\nGet an user.\n\n    200: Return a user.\n    400: User not found. \n    500: Internal error."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nickname\": \"gabiru\",\n    \"name\": \"Gabriel Alves de Faria\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/user",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"user"
+							]
+						},
+						"description": "# /user\nUpdate an user.\n\n    200: User successfully updated.\n    500: Internal error."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "e3d94da6-7004-40d7-8ae0-b9678a3afb51",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b4dc38f9-6f8b-4e9e-830c-b2cbb2bf21db",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

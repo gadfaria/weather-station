@@ -1,7 +1,7 @@
-import { User } from "../entities/user";
+import { Station } from "../entities/station";
 import fastify from "fastify";
 
-interface userController {
+interface stationController {
   get: fastify.RequestHandler;
   find: fastify.RequestHandler;
   add: fastify.RequestHandler;
@@ -9,12 +9,12 @@ interface userController {
   delete: fastify.RequestHandler;
 }
 
-let userController: userController = {
+let stationController: stationController = {
   get: async (request, reply) => {
     try {
-      const users: User[] = await User.find();
+      const stations: Station[] = await Station.find();
 
-      reply.code(200).send(users);
+      reply.code(200).send(stations);
     } catch (error) {
       console.log(error);
       reply.status(500).send();
@@ -22,11 +22,11 @@ let userController: userController = {
   },
   find: async (request, reply) => {
     try {
-      const { nickname } = request.params;
+      const { name } = request.params;
 
-      const user: User = await User.findOne({ nickname });
+      const station: Station = await Station.findOne({ name });
 
-      reply.code(200).send(user);
+      reply.code(200).send(station);
     } catch (error) {
       console.log(error);
       reply.status(500).send();
@@ -34,9 +34,9 @@ let userController: userController = {
   },
   add: async (request, reply) => {
     try {
-      const user: User = await User.save({ ...request.body });
+      const station: Station = await Station.save({ ...request.body });
 
-      reply.status(200).send(user);
+      reply.status(200).send(station);
     } catch (error) {
       console.log(error);
       reply.status(500).send();
@@ -44,9 +44,9 @@ let userController: userController = {
   },
   update: async (request, reply) => {
     try {
-      const { nickname, ...user } = request.body;
+      const { name, ...station } = request.body;
 
-      const response = await User.update({ nickname }, { ...user });
+      const response = await Station.update({ name }, { ...station });
 
       reply.status(200).send(response);
     } catch (error) {
@@ -56,9 +56,9 @@ let userController: userController = {
   },
   delete: async (request, reply) => {
     try {
-      const { nickname } = request.params;
+      const { name } = request.params;
 
-      const response = await User.delete({ nickname });
+      const response = await Station.delete({ name });
 
       reply.status(200).send(response);
     } catch (error) {
@@ -68,4 +68,4 @@ let userController: userController = {
   },
 };
 
-export { userController };
+export { stationController };
