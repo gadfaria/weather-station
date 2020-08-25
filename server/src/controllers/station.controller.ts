@@ -28,6 +28,11 @@ let stationController: stationController = {
 
       const station: Station = await Station.findOne({ name });
 
+      if (!station)
+        return reply
+          .code(400)
+          .send({ error: ErrorCode.Station.STATION_NOT_FOUND });
+
       reply.code(200).send(station);
     } catch (error) {
       console.log(error);
@@ -37,6 +42,15 @@ let stationController: stationController = {
 
   add: async (request, reply) => {
     try {
+      const { name } = request.body;
+
+      const stationVerify: Station = await Station.findOne({ name });
+
+      if (stationVerify)
+        return reply
+          .status(400)
+          .send({ error: ErrorCode.Station.STATION_ALREADY_SIGNED });
+
       const station: Station = await Station.save({ ...request.body });
 
       reply.status(200).send(station);

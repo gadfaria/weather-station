@@ -32,3 +32,5 @@ export class User extends BaseEntity {
   @OneToMany(() => Station, (stations) => stations.user)
   stations: Station[];
 }
+
+//ADICIONAR ENCRIPTAÇÃO ANTES DE INSERIR

@@ -28,11 +28,8 @@ let userController: userController = {
 
       const user: User = await User.findOne({ nickname });
 
-      if (!user) {
-        return reply
-          .code(400)
-          .send({ error: ErrorCode.User.NICKNAME_NOT_FOUND });
-      }
+      if (!user)
+        return reply.code(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
 
       reply.code(200).send(user);
     } catch (error) {
@@ -47,11 +44,10 @@ let userController: userController = {
 
       const userVerify: User = await User.findOne({ nickname });
 
-      if (userVerify) {
+      if (userVerify)
         return reply
           .code(400)
-          .send({ error: ErrorCode.User.NICKNAME_ALREADY_SIGNED });
-      }
+          .send({ error: ErrorCode.User.USER_ALREADY_SIGNED });
 
       const response: User = await User.save({ ...request.body });
 
