@@ -1,6 +1,7 @@
 import { Station } from "../entities/station";
 import fastify from "fastify";
 import ErrorCode from "../util/ErrorCodes";
+import { User } from "../entities/user";
 
 interface stationController {
   get: fastify.RequestHandler;
@@ -24,9 +25,9 @@ let stationController: stationController = {
 
   find: async (request, reply) => {
     try {
-      const { name } = request.params;
+      const { id } = request.params;
 
-      const station: Station = await Station.findOne({ name });
+      const station: Station = await Station.findOne({ id });
 
       if (!station)
         return reply
@@ -42,7 +43,7 @@ let stationController: stationController = {
 
   add: async (request, reply) => {
     try {
-      const { name } = request.body;
+      const { name, userId } = request.body;
 
       const stationVerify: Station = await Station.findOne({ name });
 
@@ -51,7 +52,12 @@ let stationController: stationController = {
           .status(400)
           .send({ error: ErrorCode.Station.STATION_ALREADY_SIGNED });
 
-      const station: Station = await Station.save({ ...request.body });
+      const user: User = await User.findOne({ id: userId });
+
+      if (!user)
+        return reply.status(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
+
+      const station: Station = await Station.save({ ...request.body, ...user });
 
       reply.status(200).send(station);
     } catch (error) {
@@ -62,9 +68,9 @@ let stationController: stationController = {
 
   update: async (request, reply) => {
     try {
-      const { name, ...station } = request.body;
+      const { id, ...station } = request.body;
 
-      const response = await Station.update({ name }, { ...station });
+      const response = await Station.update({ id }, { ...station });
 
       reply.status(200).send(response);
     } catch (error) {
@@ -75,9 +81,9 @@ let stationController: stationController = {
 
   delete: async (request, reply) => {
     try {
-      const { name } = request.params;
+      const { id } = request.params;
 
-      const response = await Station.delete({ name });
+      const response = await Station.delete({ id });
 
       reply.status(200).send(response);
     } catch (error) {

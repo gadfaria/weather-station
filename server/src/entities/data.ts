@@ -9,9 +9,9 @@ import {
 } from "typeorm";
 import { Station } from "./station";
 
-@Index("fk_Values_Stations1_idx", ["stationId"], {})
-@Entity("Values", { schema: "weather-station" })
-export class Value extends BaseEntity {
+@Index("fk_Data_Stations1_idx", ["stationId"], {})
+@Entity("Data", { schema: "weather-station" })
+export class Data extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
   id: string;
 
@@ -27,7 +27,7 @@ export class Value extends BaseEntity {
   @Column("datetime", { name: "updatedAt", default: () => "CURRENT_TIMESTAMP" })
   updatedAt: Date;
 
-  @ManyToOne(() => Station, (stations) => stations.values, {
+  @ManyToOne(() => Station, (stations) => stations.data, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })

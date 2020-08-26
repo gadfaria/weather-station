@@ -11,7 +11,7 @@ const stationRoutes: Routes = [
   },
   {
     method: "GET",
-    url: "/station/:name",
+    url: "/station/:id",
     handler: stationController.find
   },
   {
@@ -26,7 +26,7 @@ const stationRoutes: Routes = [
   },
   {
     method: "DELETE",
-    url: "/station/:name",
+    url: "/station/:id",
     handler: stationController.delete
   }
 ];

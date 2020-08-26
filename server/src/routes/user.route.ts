@@ -11,7 +11,7 @@ const userRoutes: Routes = [
   },
   {
     method: "GET",
-    url: "/user/:nickname",
+    url: "/user/:id",
     handler: userController.find,
   },
   {
@@ -26,7 +26,7 @@ const userRoutes: Routes = [
   },
   {
     method: "DELETE",
-    url: "/user/:nickname",
+    url: "/user/:id",
     handler: userController.delete,
   },
 ];

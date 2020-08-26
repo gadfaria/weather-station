@@ -5,12 +5,20 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   BaseEntity,
+  BeforeInsert,
 } from "typeorm";
 import { Station } from "./station";
+import { hashSync } from "bcrypt";
 
 @Index("nickname_UNIQUE", ["nickname"], { unique: true })
 @Entity("Users", { schema: "weather-station" })
 export class User extends BaseEntity {
+  constructor(user: User) {
+    super();
+    Object.assign(this, { ...user });
+  }
+
+
   @PrimaryGeneratedColumn({ type: "bigint", name: "id" })
   id: string;
 
@@ -31,6 +39,9 @@ export class User extends BaseEntity {
 
   @OneToMany(() => Station, (stations) => stations.user)
   stations: Station[];
-}
 
-//ADICIONAR ENCRIPTAÇÃO ANTES DE INSERIR
+  @BeforeInsert()
+  private passwordHash() {
+    this.password = hashSync(this.password, 10);
+  }
+}
