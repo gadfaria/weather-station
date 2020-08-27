@@ -28,7 +28,7 @@ export class User extends BaseEntity {
   @Column("varchar", { name: "nickname", unique: true, length: 50 })
   nickname: string;
 
-  @Column("varchar", { name: "password", length: 50 })
+  @Column("varchar", { name: "password", length: 200 })
   password: string;
 
   @Column("datetime", { name: "createdAt", default: () => "CURRENT_TIMESTAMP" })

@@ -11,6 +11,11 @@ const stationRoutes: Routes = [
   },
   {
     method: "GET",
+    url: "/station/user/:userId",
+    handler: stationController.getByUser
+  },
+  {
+    method: "GET",
     url: "/station/:id",
     handler: stationController.find
   },

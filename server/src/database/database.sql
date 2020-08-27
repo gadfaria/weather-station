@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS `weather-station`.`Users` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `nickname` VARCHAR(50) NOT NULL,
-  `password` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(200) NOT NULL,
   `createdAt` DATETIME NOT NULL DEFAULT NOW(),
   `updatedAt` DATETIME NOT NULL DEFAULT NOW(),
   PRIMARY KEY (`id`),

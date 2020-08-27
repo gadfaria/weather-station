@@ -6,7 +6,7 @@ import { Station } from "../entities/station";
 
 interface dataController {
   get: fastify.RequestHandler;
-  findByStation: fastify.RequestHandler;
+  getByStation: fastify.RequestHandler;
   add: fastify.RequestHandler;
   update: fastify.RequestHandler;
   delete: fastify.RequestHandler;
@@ -24,7 +24,7 @@ let dataController: dataController = {
     }
   },
 
-  findByStation: async (request, reply) => {
+  getByStation: async (request, reply) => {
     try {
       const { stationId } = request.params;
 

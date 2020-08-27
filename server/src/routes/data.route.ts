@@ -11,8 +11,8 @@ const dataRoutes: Routes = [
   },
   {
     method: "GET",
-    url: "/data/:stationId",
-    handler: dataController.findByStation
+    url: "/data/station/:stationId",
+    handler: dataController.getByStation
   },
   {
     method: "POST",

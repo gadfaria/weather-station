@@ -5,6 +5,7 @@ import { User } from "../entities/user";
 
 interface stationController {
   get: fastify.RequestHandler;
+  getByUser: fastify.RequestHandler;
   find: fastify.RequestHandler;
   add: fastify.RequestHandler;
   update: fastify.RequestHandler;
@@ -15,6 +16,26 @@ let stationController: stationController = {
   get: async (request, reply) => {
     try {
       const stations: Station[] = await Station.find();
+
+      reply.code(200).send(stations);
+    } catch (error) {
+      console.log(error);
+      reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
+    }
+  },
+
+  getByUser: async (request, reply) => {
+    try {
+      const { userId } = request.params;
+
+      const user: User = await User.findOne({ id: userId });
+      if (!user)
+        reply.status(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
+
+      const stations: Station[] = await Station.createQueryBuilder("station")
+        .innerJoin("station.user", "user")
+        .where("user.id = :userId", { userId })
+        .getMany();
 
       reply.code(200).send(stations);
     } catch (error) {
@@ -57,7 +78,7 @@ let stationController: stationController = {
       if (!user)
         return reply.status(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
 
-      const station: Station = await Station.save({ ...request.body, ...user });
+      const station: Station = await Station.save({ ...request.body, userId });
 
       reply.status(200).send(station);
     } catch (error) {
