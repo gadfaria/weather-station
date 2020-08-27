@@ -13,24 +13,41 @@ const Server: { [code in ServerCode]: ErrorType } = {
 };
 
 type UserCode =
-  | "NICKNAME_ALREADY_SIGNED"
-  | "NICKNAME_NOT_FOUND"
+  | "USER_ALREADY_SIGNED"
+  | "USER_NOT_FOUND"
   | "WRONG_PASSWORD";
 
 const User: { [code in UserCode]: ErrorType } = {
-  NICKNAME_ALREADY_SIGNED: {
-    code: "NICKNAME_ALREADY_SIGNED",
-    message: "Apelido já cadastrado.",
+  USER_ALREADY_SIGNED: {
+    code: "USER_ALREADY_SIGNED",
+    message: "Usuário já cadastrado.",
   },
-  NICKNAME_NOT_FOUND: {
-    code: "NICKNAME_NOT_FOUND",
-    message: "Apelido não encontrado.",
+  USER_NOT_FOUND: {
+    code: "USER_NOT_FOUND",
+    message: "Usuário não encontrado.",
   },
   WRONG_PASSWORD: {
     code: "WRONG_PASSWORD",
     message: "Senha incorreta.",
   },
 };
+
+type StationCode =
+  | "STATION_ALREADY_SIGNED"
+  | "STATION_NOT_FOUND"
+
+const Station: { [code in StationCode]: ErrorType } = {
+  STATION_ALREADY_SIGNED: {
+    code: "STATION_ALREADY_SIGNED",
+    message: "Estação já cadastrado.",
+  },
+  STATION_NOT_FOUND: {
+    code: "STATION_NOT_FOUND",
+    message: "Estação não encontrado.",
+  },
+};
+
+
 
 type TokenCode = "INVALID_TOKEN";
 const Token: { [code in TokenCode]: ErrorType } = {
@@ -43,6 +60,7 @@ const Token: { [code in TokenCode]: ErrorType } = {
 const ErrorCode = {
   Server,
   User,
+  Station,
   Token,
 };
 

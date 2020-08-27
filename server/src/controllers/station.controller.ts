@@ -1,9 +1,11 @@
 import { Station } from "../entities/station";
 import fastify from "fastify";
 import ErrorCode from "../util/ErrorCodes";
+import { User } from "../entities/user";
 
 interface stationController {
   get: fastify.RequestHandler;
+  getByUser: fastify.RequestHandler;
   find: fastify.RequestHandler;
   add: fastify.RequestHandler;
   update: fastify.RequestHandler;
@@ -22,11 +24,36 @@ let stationController: stationController = {
     }
   },
 
+  getByUser: async (request, reply) => {
+    try {
+      const { userId } = request.params;
+
+      const user: User = await User.findOne({ id: userId });
+      if (!user)
+        reply.status(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
+
+      const stations: Station[] = await Station.createQueryBuilder("station")
+        .innerJoin("station.user", "user")
+        .where("user.id = :userId", { userId })
+        .getMany();
+
+      reply.code(200).send(stations);
+    } catch (error) {
+      console.log(error);
+      reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
+    }
+  },
+
   find: async (request, reply) => {
     try {
-      const { name } = request.params;
+      const { id } = request.params;
 
-      const station: Station = await Station.findOne({ name });
+      const station: Station = await Station.findOne({ id });
+
+      if (!station)
+        return reply
+          .code(400)
+          .send({ error: ErrorCode.Station.STATION_NOT_FOUND });
 
       reply.code(200).send(station);
     } catch (error) {
@@ -37,7 +64,21 @@ let stationController: stationController = {
 
   add: async (request, reply) => {
     try {
-      const station: Station = await Station.save({ ...request.body });
+      const { name, userId } = request.body;
+
+      const stationVerify: Station = await Station.findOne({ name });
+
+      if (stationVerify)
+        return reply
+          .status(400)
+          .send({ error: ErrorCode.Station.STATION_ALREADY_SIGNED });
+
+      const user: User = await User.findOne({ id: userId });
+
+      if (!user)
+        return reply.status(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
+
+      const station: Station = await Station.save({ ...request.body, userId });
 
       reply.status(200).send(station);
     } catch (error) {
@@ -48,9 +89,9 @@ let stationController: stationController = {
 
   update: async (request, reply) => {
     try {
-      const { name, ...station } = request.body;
+      const { id, ...station } = request.body;
 
-      const response = await Station.update({ name }, { ...station });
+      const response = await Station.update({ id }, { ...station });
 
       reply.status(200).send(response);
     } catch (error) {
@@ -61,9 +102,9 @@ let stationController: stationController = {
 
   delete: async (request, reply) => {
     try {
-      const { name } = request.params;
+      const { id } = request.params;
 
-      const response = await Station.delete({ name });
+      const response = await Station.delete({ id });
 
       reply.status(200).send(response);
     } catch (error) {

@@ -9,7 +9,7 @@ import {
   BaseEntity,
 } from "typeorm";
 import { User } from "./user";
-import { Value } from "./value";
+import { Data } from "./data";
 
 @Index("name_UNIQUE", ["name"], { unique: true })
 @Index("fk_Stations_Users_idx", ["userId"], {})
@@ -46,6 +46,6 @@ export class Station extends BaseEntity {
   @JoinColumn([{ name: "userId", referencedColumnName: "id" }])
   user: User;
 
-  @OneToMany(() => Value, (values) => values.station)
-  values: Value[];
+  @OneToMany(() => Data, (data) => data.station)
+  data: Data[];
 }

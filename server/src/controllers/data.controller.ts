@@ -1,37 +1,40 @@
-import { User } from "../entities/user";
+import { Data } from "../entities/data";
 import fastify from "fastify";
 import ErrorCode from "../util/ErrorCodes";
+import { User } from "../entities/user";
+import { Station } from "../entities/station";
 
-interface userController {
+interface dataController {
   get: fastify.RequestHandler;
-  find: fastify.RequestHandler;
+  getByStation: fastify.RequestHandler;
   add: fastify.RequestHandler;
   update: fastify.RequestHandler;
   delete: fastify.RequestHandler;
 }
 
-let userController: userController = {
+let dataController: dataController = {
   get: async (request, reply) => {
     try {
-      const users: User[] = await User.find();
+      const data: Data[] = await Data.find();
 
-      reply.code(200).send(users);
+      reply.code(200).send(data);
     } catch (error) {
       console.log(error);
       reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
     }
   },
 
-  find: async (request, reply) => {
+  getByStation: async (request, reply) => {
     try {
-      const { id } = request.params;
+      const { stationId } = request.params;
 
-      const user: User = await User.findOne({ id });
+      const data: Data[] = await Data.createQueryBuilder("data")
+        .innerJoin("data.station", "station")
+        .where("station.id = :stationId", { stationId })
+        .orderBy()
+        .getMany();
 
-      if (!user)
-        return reply.code(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
-
-      reply.code(200).send(user);
+      reply.code(200).send(data);
     } catch (error) {
       console.log(error);
       reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
@@ -40,18 +43,18 @@ let userController: userController = {
 
   add: async (request, reply) => {
     try {
-      const { nickname } = request.body;
+      const { stationId } = request.body;
 
-      const userVerify: User = await User.findOne({ nickname });
+      const station: Station = await Station.findOne({ id: stationId });
 
-      if (userVerify)
+      if (!station)
         return reply
-          .code(400)
-          .send({ error: ErrorCode.User.USER_ALREADY_SIGNED });
+          .status(400)
+          .send({ error: ErrorCode.Station.STATION_NOT_FOUND });
 
-      const response: User = await User.save(new User(request.body));
+      const data: Data = await Data.save({ ...request.body, ...station });
 
-      reply.status(200).send(response);
+      reply.status(200).send(data);
     } catch (error) {
       console.log(error);
       reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
@@ -60,9 +63,9 @@ let userController: userController = {
 
   update: async (request, reply) => {
     try {
-      const { id, ...user } = request.body;
+      const { id, data } = request.body;
 
-      const response = await User.update({ id }, { ...user });
+      const response = await Data.update({ id }, { ...data });
 
       reply.status(200).send(response);
     } catch (error) {
@@ -75,7 +78,7 @@ let userController: userController = {
     try {
       const { id } = request.params;
 
-      const response = await User.delete({ id });
+      const response = await Data.delete({ id });
 
       reply.status(200).send(response);
     } catch (error) {
@@ -85,4 +88,4 @@ let userController: userController = {
   },
 };
 
-export { userController };
+export { dataController };
