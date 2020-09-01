@@ -1,0 +1,72 @@
+<ion-menu side="start" type="push" contentId="main" menuId='leftMenu'>
+  <ion-header>
+    <ion-toolbar color="danger">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <div *ngIf="!logged">
+      <ion-list>
+        <ion-item [routerLink]="['../', 'home']">
+          <ion-icon slot="start" name="home-outline"></ion-icon>
+          <ion-label>Inicio</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'login']">
+          <ion-icon slot="start" name="enter-outline"></ion-icon>
+          <ion-label>Login</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'sign-in']">
+          <ion-icon slot="start" name="person-add-outline"></ion-icon>
+          <ion-label>Cadastrar</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'about']">
+          <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
+          <ion-label>Sobre o PET-TEC</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngIf="logged">
+      <ion-list>
+        <ion-item [routerLink]="['../', 'home']">
+          <ion-icon slot="start" name="home-outline"></ion-icon>
+          <ion-label>Inicio</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'user-profile']">
+          <ion-icon slot="start" name="person-outline"></ion-icon>
+          <ion-label>Perfil</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'devices']">
+          <ion-icon slot="start" name="file-tray-full-outline"></ion-icon>
+          <ion-label>Dispositivos</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'new-device']">
+          <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+          <ion-label>Novo Dispositivo</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'report']">
+          <ion-icon slot="start" name="volume-medium-outline"></ion-icon>
+          <ion-label>Relatar Erro</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item [routerLink]="['../', 'about']">
+          <ion-icon slot="start" name="alert-circle-outline"></ion-icon>
+          <ion-label>Sobre o PET-TEC</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+        <ion-item (click)="logout()">
+          <ion-icon slot="start" name="exit-outline"></ion-icon>
+          <ion-label>Sair</ion-label>
+          <ion-ripple-effect></ion-ripple-effect>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-menu>

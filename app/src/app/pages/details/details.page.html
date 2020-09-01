@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot='start'>
+      <ion-button [routerLink]="['../', 'home']">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    
+    <ion-title>Device Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full" [routerLink]="['../', 'temperature']">
+    <ion-label>Temperatura</ion-label>
+    <ion-icon name="thermometer-outline" slot="end"></ion-icon>
+    <ion-label>Temperatura Atual = 30°C</ion-label>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-item>
+  <ion-item lines="full" [routerLink]="['../', 'humidity']">
+    <ion-label>Umidade</ion-label>
+    <ion-icon name="water-outline" slot="end"></ion-icon>
+    <ion-label>Umidade Atual = 45%</ion-label>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-item>
+  <ion-item lines="full" [routerLink]="['../', 'rain']">
+    <ion-label>Chuvas</ion-label>
+    <ion-icon name="rainy-outline" slot="end"></ion-icon>
+    <ion-label>Atualmente = Sem Chuvas</ion-label>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-item>
+  <ion-item lines="full" [routerLink]="['../', 'soil-moisture']">
+    <ion-label>Umidade Do Solo</ion-label>
+    <ion-icon name="wine-outline" slot="end"></ion-icon>
+    <ion-label>Umidade Atual = Não sei a medida</ion-label>
+    <ion-ripple-effect></ion-ripple-effect>
+  </ion-item>
+</ion-content>
