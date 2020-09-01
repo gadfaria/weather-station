@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot='start'>
+      <ion-button [routerLink]="['../', 'home']">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">E-mail</ion-label>
+    <ion-textarea inputmode="email"></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Senha</ion-label>
+    <ion-input type="password" name="password"></ion-input>
+  </ion-item>
+  
+  <ion-item>
+    <ion-checkbox></ion-checkbox>
+    <ion-label style="padding: 15px;">Permanescer Logado</ion-label>
+  </ion-item>
+  
+  <ion-button color="primary" expand="block" (click)="login()">
+    <ion-label>LOGIN</ion-label>
+  </ion-button>
+  <ion-button color="danger" expand="block" (click)="resetPassword()">
+    <ion-label>ESQUECI A SENHA</ion-label>
+  </ion-button>
+</ion-content>
