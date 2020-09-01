@@ -1,0 +1,12 @@
+Ideia app PET-TEC
+
+ - Usuário entrará
+ - GeoLocation coletará local do cliente
+ - Mostrará informações (umidade, temperatura, chuva, umidade do solo) para o local do cliente de acordo com o dispositivo mais próximo em cordenadas planas
+ - Mostrará mapa com a localização do cliente
+ - Existirá uma chave que, se ativada, mostrará as localizações de cada sensor no mapa
+ - Existirá uma barra de pesquisa para buscar regiões no mapa
+ - Ao clicar no sensor, um alert com as informações: latitude, longitude, umidade, temperatura, chuva e umidade do solo (atuais), além de um botão de "mais informações"
+ - O "mais informações" levará para uma pagina com o histórico do ponto (se possivel coletar informações de um banco de dados gratis, mostrar previsões de temperatura)
+ - No menu existirá as opções: login, cadastro, about
+ - Estando logado, existirá as opções: gerenciar dispositivos, cadastrar dispositivo, reportar erro
