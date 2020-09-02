@@ -2,6 +2,7 @@ import { Station } from "../entities/station";
 import fastify from "fastify";
 import ErrorCode from "../util/ErrorCodes";
 import { User } from "../entities/user";
+import fetch from "node-fetch";
 
 interface stationController {
   get: fastify.RequestHandler;
@@ -64,7 +65,20 @@ let stationController: stationController = {
 
   add: async (request, reply) => {
     try {
-      const { name, userId } = request.body;
+      const { name, userId, lat, lon } = request.body;
+
+      const response = await fetch(
+        `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${process.env.API_KEY_OC}`
+      );
+
+      const responseObject = await response.json();
+
+      const {
+        country,
+        state,
+        town: city,
+        suburb: neighborhood,
+      } = responseObject.results[0].components;
 
       const stationVerify: Station = await Station.findOne({ name });
 
@@ -78,7 +92,14 @@ let stationController: stationController = {
       if (!user)
         return reply.status(400).send({ error: ErrorCode.User.USER_NOT_FOUND });
 
-      const station: Station = await Station.save({ ...request.body, userId });
+      const station: Station = await Station.save({
+        ...request.body,
+        userId,
+        country,
+        state,
+        city,
+        neighborhood,
+      });
 
       reply.status(200).send(station);
     } catch (error) {

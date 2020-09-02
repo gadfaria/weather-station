@@ -8,6 +8,7 @@
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/mongodb": "^3.3.14",
+    "@types/node-fetch": "^2.5.7",
     "aws-sdk": "^2.599.0",
     "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
@@ -19,6 +20,7 @@
     "moment": "^2.24.0",
     "mongodb": "^3.4.1",
     "mysql": "^2.17.1",
+    "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.2",
     "redis": "^2.8.0",
     "typeorm": "^0.2.22"

@@ -39,6 +39,18 @@ export class Station extends BaseEntity {
   @Column("float", { name: "accuracy", nullable: true, precision: 12 })
   accuracy: number | null;
 
+  @Column("varchar", { name: "city", length: 100 })
+  city: string | null;
+
+  @Column("varchar", { name: "state", length: 100 })
+  state: string | null;
+
+  @Column("varchar", { name: "country", length: 100 })
+  country: string | null;
+
+  @Column("varchar", { name: "neighborhood", length: 100 })
+  neighborhood: string | null;
+
   @ManyToOne(() => User, (users) => users.stations, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
