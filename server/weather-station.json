@@ -59,16 +59,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{server_url}}/user/gabiru",
+							"raw": "{{server_url}}/user/1",
 							"host": [
 								"{{server_url}}"
 							],
 							"path": [
 								"user",
-								"gabiru"
+								"1"
 							]
 						},
-						"description": "# /user/:nickname\nGet an user.\n\n    200: Return a user.\n    400: User not found. \n    500: Internal error."
+						"description": "# /user/:id\nGet an user.\n\n    200: Return a user.\n    400: User not found. \n    500: Internal error."
 					},
 					"response": []
 				},
@@ -79,7 +79,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"nickname\": \"gabiru\",\n    \"name\": \"Gabriel Alves de Faria\"\n}",
+							"raw": "{\n    \"id\": \"1\",\n    \"nickname\": \"gabiru\",\n    \"name\": \"Gabriel Alves de Faria\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -96,6 +96,131 @@
 							]
 						},
 						"description": "# /user\nUpdate an user.\n\n    200: User successfully updated.\n    500: Internal error."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/user/2",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"user",
+								"2"
+							]
+						},
+						"description": "# /user/:id\nDelete an user.\n\n    200: User deleted.\n    500: Internal error."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Station",
+			"item": [
+				{
+					"name": "Add Station",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Estação 3\",\n    \"userId\": \"1\",\n    \"lat\": \"-22.3468697\",\n    \"lon\": \"-45.284762\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/station",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"station"
+							]
+						},
+						"description": "# /station\nInsert a station.\n\n    200: Station successfully inserted.\n    400: Station already exists.\n    500: Internal error."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Station By User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/station/user/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"station",
+								"user",
+								"1"
+							]
+						},
+						"description": "# /station/user/:userId\nGet all stations by user.\n\n    200: Return all stations.\n    400: User not found.\n    500: Internal error."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Data",
+			"item": [
+				{
+					"name": "Add Data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stationId\": \"1\",\n    \"temperature\": \"42.5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server_url}}/data",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"data"
+							]
+						},
+						"description": "# /data\nInsert a station.\n\n    200: Data successfully inserted.\n    400: Station not found.\n    500: Internal error."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data By Station",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server_url}}/data/station/1",
+							"host": [
+								"{{server_url}}"
+							],
+							"path": [
+								"data",
+								"station",
+								"1"
+							]
+						},
+						"description": "# /data/station/:stationId\nGet all data by station.\n\n    200: Return all datas.\n    400: Station not found.\n    500: Internal error."
 					},
 					"response": []
 				}

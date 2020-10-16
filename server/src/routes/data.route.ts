@@ -7,28 +7,33 @@ const dataRoutes: Routes = [
   {
     method: "GET",
     url: "/data",
-    handler: dataController.get
+    handler: dataController.get,
   },
   {
     method: "GET",
     url: "/data/station/:stationId",
-    handler: dataController.getByStation
+    handler: dataController.getByStation,
   },
   {
     method: "POST",
     url: "/data",
-    handler: dataController.add
+    handler: dataController.add,
   },
   {
     method: "PUT",
     url: "/data",
-    handler: dataController.update
+    handler: dataController.update,
   },
   {
     method: "DELETE",
     url: "/data/:id",
-    handler: dataController.delete
-  }
+    handler: dataController.delete,
+  },
+  {
+    method: "GET",
+    url: "/teste",
+    handler: dataController.teste,
+  },
 ];
 
 export { dataRoutes };

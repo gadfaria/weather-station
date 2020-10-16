@@ -10,6 +10,7 @@ interface dataController {
   add: fastify.RequestHandler;
   update: fastify.RequestHandler;
   delete: fastify.RequestHandler;
+  teste: fastify.RequestHandler;
 }
 
 let dataController: dataController = {
@@ -27,6 +28,10 @@ let dataController: dataController = {
   getByStation: async (request, reply) => {
     try {
       const { stationId } = request.params;
+
+      const station: Station = await Station.findOne({ id: stationId });
+      if (!station)
+        reply.status(400).send({ error: ErrorCode.Station.STATION_NOT_FOUND });
 
       const data: Data[] = await Data.createQueryBuilder("data")
         .innerJoin("data.station", "station")
@@ -81,6 +86,23 @@ let dataController: dataController = {
       const response = await Data.delete({ id });
 
       reply.status(200).send(response);
+    } catch (error) {
+      console.log(error);
+      reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
+    }
+  },
+
+  teste: async (request, reply) => {
+    try {
+      let mqtt = require("mqtt");
+      let client = mqtt.connect("mqtt:broker.mqttdashboard.com");
+
+      client.on("message", function (topic, message) {
+        // message is Buffer
+        console.log(message.toString());
+        client.end();
+      });
+      reply.status(200).send("oi");
     } catch (error) {
       console.log(error);
       reply.status(500).send({ error: ErrorCode.Server.SERVER_ERROR });
